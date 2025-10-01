@@ -1,23 +1,3 @@
-def hp_seq (seq):
-    """ Convert an amino acid sequence into a hydrophobic-polar (HP) sequence.
-        Hydrophobic residues are represented by 'H' and polar residues by 'P'.
-        
-        Args:
-            seq (str): The input amino acid sequence.
-            Sequence containing the 20 different amino-acids (RNDQEHKSTACGILMFPWYV), they must be upper case letters.
-        
-        Returns:
-            str: The corresponding HP sequence.
-    """
-    # Define hydrophobic and polar amino acids
-    hydrophobic = set('AILMFWYV') # Hydrophobic amino acids
-    polar = set('RNDQEHKSTC') # Polar amino acids
-
-    # Convert the sequence to HP representation
-    hp_sequence = ''.join(['H' if aa in hydrophobic else 'P' if aa in polar else 'X' for aa in seq])
-
-    return hp_sequence
-
 def is_valid_protein_sequence(seq: str) -> bool:
     """ Check if the given sequence is a valid protein sequence.
         A valid protein sequence contains only the 20 standard amino acids represented by their single-letter codes.
@@ -34,6 +14,29 @@ def is_valid_protein_sequence(seq: str) -> bool:
         if aa not in valid_amino_acids:
             return False
     return True
+
+def hp_seq (seq):
+    """ Convert an amino acid sequence into a hydrophobic-polar (HP) sequence.
+        Hydrophobic residues are represented by 'H' and polar residues by 'P'.
+        
+        Args:
+            seq (str): The input amino acid sequence.
+            Sequence containing the 20 different amino-acids (RNDQEHKSTACGILMFPWYV), they must be upper case letters.
+        
+        Returns:
+            str: The corresponding HP sequence.
+    """
+    if not is_valid_protein_sequence(seq):
+        raise ValueError("Invalid protein sequence. Only standard amino acid single-letter codes are allowed.")
+    
+    # Define hydrophobic and polar amino acids
+    hydrophobic = set('AILMFWYV') # Hydrophobic amino acids
+    polar = set('RNDQEHKSTC') # Polar amino acids
+
+    # Convert the sequence to HP representation
+    hp_sequence = ''.join(['H' if aa in hydrophobic else 'P' if aa in polar else 'X' for aa in seq])
+
+    return hp_sequence
 
 def is_valid_hp_sequence(hp_seq: str) -> bool:
     """ Check if the given sequence is a valid hydrophobic-polar (HP) sequence.
@@ -58,6 +61,17 @@ def linear_structure(seq:str):
            seq (str): The input HP sequence.
        
        Returns:
-           list: A list of tuples representing the coordinates of each residue in a linear structure.
+           dict: A dictionary mapping position indices to tuples containing (amino_acid, coordinates).
+                Format: {0: ('H', (0, 0, 0)), 1: ('P', (1, 0, 0)), ...}
     """
-       
+    if not is_valid_hp_sequence(seq):
+        raise ValueError("Invalid HP sequence. Only 'H' and 'P' characters are allowed.")
+    
+    structure = {}
+    
+    # Generate linear coordinates along the x-axis
+    for i, residue in enumerate(seq):
+        # Map position index to (amino_acid, coordinates) tuple
+        structure[i] = (residue, (i, 0, 0))
+    
+    return structure     
