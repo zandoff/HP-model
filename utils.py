@@ -152,3 +152,18 @@ def energy(hp_structure: dict, e=1.0) -> float:
     energy = - (h_h_counts / 2) * e  # Each contact counted twice
 
     return energy
+
+def folding(hp_structure: dict, max_iterations=1000) -> dict:
+    """
+    Perform a simple Monte Carlo simulation to fold the HP structure.
+    
+    Args:
+        hp_structure (dict) : A dictionary mapping position indices to tuples containing (amino_acid, coordinates).
+                             Format: {0: ('H', (0, 0, 0)), 1: ('P', (1, 0, 0)), ...}.                  
+        max_iterations (int): The maximum number of iterations for the Monte Carlo simulation. Default is 1000.
+    
+    Returns:
+        dict: The folded HP structure after the simulation.
+    """
+    
+    return hp_structure  # Placeholder for actual folding logic
