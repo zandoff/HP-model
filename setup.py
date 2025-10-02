@@ -5,7 +5,7 @@ from setuptools import setup
 __author__ = ['Lorenzo Porrini']
 __email__ = ['lorenzo.porrini2@studio.unibo.it']
 
-PACKAGE_NAME = 'HP-model'
+PACKAGE_NAME = 'HP_model'
 PACKAGE_VERSION = '0.0.1'
 DESCRIPTION = 'HP-model implementation.'
 AUTHOR = 'Lorenzo Porrini'
